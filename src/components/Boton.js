@@ -1,15 +1,20 @@
 import React from "react";
 import "../css/Boton.css";
 
-function Boton({ texto, esBotonDeClic, manejarClic }) {
-  //Desestructuracion del prop
+function Boton(props) {
+  const esOperador = (valor) => {
+    return isNaN(valor) && valor !== "." && valor !== "=";
+  };
   return (
-    <button
-      className={esBotonDeClic ? "boton-clic" : "boton-reiniciar"}
-      onClick={manejarClic}
+    <div
+      className={`boton-contenedor ${
+        esOperador(props.children) ? "operador" : ""
+      }`.trimEnd()}
+      onClick={() => props.manejarClic(props.children)}
     >
-      {texto}
-    </button>
+      {props.children}
+    </div>
   );
 }
+
 export default Boton;
